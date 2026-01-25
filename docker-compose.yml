@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: skill-mentor-db
+    environment:
+      POSTGRES_DB: practicedb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    image: skill-mentor-service:lts
+    container_name: skill-mentor-backend
+    ports:
+      - "8085:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/practicedb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres123
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
