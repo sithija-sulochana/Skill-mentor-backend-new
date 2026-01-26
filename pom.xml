@@ -24,6 +24,7 @@
         <java.version>17</java.version>
     </properties>
 
+
     <dependencies>
 
         <!-- Web (AUTO-CONFIG ENABLED) -->
@@ -57,6 +58,7 @@
             <artifactId>jjwt-api</artifactId>
             <version>0.12.3</version>
         </dependency>
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
@@ -69,6 +71,14 @@
             <version>0.12.3</version>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.42</version>
+            <scope>provided</scope>
+        </dependency>
+
 
         <!--  Swagger / OpenAPI (BOOT 3 COMPATIBLE) -->
         <dependency>
