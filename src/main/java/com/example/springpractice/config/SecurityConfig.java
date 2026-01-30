@@ -1,4 +1,4 @@
-package com.stemlink.skillmentor.configs;
+package com.example.springpractice.config;
 
 
 import lombok.RequiredArgsConstructor;
