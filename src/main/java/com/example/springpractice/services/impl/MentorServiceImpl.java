@@ -6,7 +6,10 @@ import com.example.springpractice.repository.MentorRepository;
 import com.example.springpractice.services.MentorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Cache;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -21,6 +24,7 @@ public class MentorServiceImpl implements MentorService {
     private final MentorRepository mentorRepository;
     private final ModelMapper modelMapper;
 
+//    @Cacheable(value = "mentors", key = "#pageable.pageNumber + '-' + #pageable.pageSize + '-' + #pageable.sort.toString()")
     public Page<Mentor> getAllMentors(Pageable pageable){
         try{
             return mentorRepository.findAll(pageable);
@@ -31,6 +35,7 @@ public class MentorServiceImpl implements MentorService {
 
     }
 
+//    @CacheEvict(value = "mentors", allEntries = true)
     public Mentor createMentor(Mentor mentor){
 
         try{
@@ -42,6 +47,7 @@ public class MentorServiceImpl implements MentorService {
         return mentorRepository.save(mentor);
     }
 
+//    @Cacheable(value = "mentors", key = "#id")
     public Mentor getMentorById(Long id){
         try {
             return mentorRepository.findById(id)
@@ -63,6 +69,7 @@ public class MentorServiceImpl implements MentorService {
         }
 
     }
+//    @CacheEvict(value = "mentors", allEntries = true)
     public Mentor updateMentorById(Long id, Mentor updatedMentor){
 
         try{
