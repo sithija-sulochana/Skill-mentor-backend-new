@@ -9,6 +9,7 @@ import com.example.springpractice.services.MentorService;
 import com.example.springpractice.services.MentorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Cache;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,7 @@ public class MentorController extends AbstractController {
 
     @GetMapping
     @PreAuthorize("isAuthenticated()")
+
     public ResponseEntity<Page<Mentor>> getAllMentors(Pageable pageable) {
         Page<Mentor> mentors = mentorService.getAllMentors(pageable);
         return sendOkResponse(mentors);
@@ -55,6 +57,7 @@ public class MentorController extends AbstractController {
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("hasAnyRole('Admin', 'Mentor')")
     public ResponseEntity<Mentor> updateMentor(@PathVariable Long id, @Valid @RequestBody MentorDTO updatedMentorDTO) {
         Mentor mentor = modelMapper.map(updatedMentorDTO, Mentor.class);
         Mentor updatedMentor = mentorService.updateMentorById(id, mentor);
@@ -63,6 +66,7 @@ public class MentorController extends AbstractController {
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAnyRole('Admin', 'Mentor')")
     public ResponseEntity<Mentor> deleteMentor(@PathVariable Long id) {
         mentorService.deleteMentor(id);
         return sendNoContentResponse();
